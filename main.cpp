@@ -4,6 +4,12 @@
  * Task 3: Skip List
  * a. Implement a Skip List data structure
  */
+/*
+ *updating implement task b 10/12/2024
+ *Malak Ahmed 20221157
+ *Salma Gamal 20221073
+ *
+ */
 #include <iostream>
 #include <bits/stdc++.h>
 #include <string>
@@ -102,7 +108,7 @@ void skipList::insert(node player)
         {
             newNode->next[i] = update[i]->next[i]; // Make new node point to the next node
             update[i]->next[i] = newNode;  // Make the previous node point to the new node
-        } cout <<name<< data << " inserted successfully.\n";
+        } cout <<name<< data << " joined successfully.\n";
 
     }
     else
@@ -195,7 +201,7 @@ void skipList::display()
         cout<<"Level "<<i<<":- ";
         while (curr->next[i])
         {
-            cout<<curr->next[i]->name<<" : "<<curr->next[i]->data<<" /";
+            cout<<curr->next[i]->name<<" : "<<curr->next[i]->data<<"  /  ";
             curr = curr->next[i];
         }cout<<"\n";
     }
@@ -216,6 +222,8 @@ int skipList::searchBYname(string name ){
        if(curr->next[0]->name==name){
            return curr->next[0]->data;
        }
+
+        curr = curr->next[0];
     }return -1;
 }
 int main()
@@ -256,17 +264,24 @@ int main()
                 cin>>p.name>>score;
                 p.data=SkipList.searchBYname(p.name);
                 SkipList.update_player(p,score);
+            break;
             case 4:
-                //todo
+               cout<<"Enter the palyer's name to view their score : \n";
+            cin>>p.name;
+            p.data=SkipList.searchBYname(p.name);
+            if(p.data!=-1) cout<<p.data<<"\n";
+            else cout<<"Player not found\n";
                 break;
             case 5:
-                //todo
-                break;
+                cout << "Round finished! Displaying all players and their scores:\n";
+              SkipList.display();
+            break;
             case 6:
                 //todo
                 break;
             default:
-                break;
+                cout << "Invalid choice. Please select a valid option.\n";
+            break;
 
 
         }
@@ -279,31 +294,6 @@ int main()
     }
 
 
-//    SkipList.insert(60);
-//    SkipList.insert(30);
-//    SkipList.insert(40);
-//    SkipList.insert(50);
-//    SkipList.insert(60);
-//    SkipList.insert(70);
-//    SkipList.insert(80);
-//    SkipList.insert(90);
-//    SkipList.insert(100);
-
-
-
-
-//
-//    SkipList.search(20);
-//    SkipList.search(40);
-//    SkipList.search(120);
-//
-//
-//    SkipList.remove(20);
-//    SkipList.remove(40);
-//    SkipList.remove(120);
-//
-//
-//    SkipList.display();
 
 
     return 0;
