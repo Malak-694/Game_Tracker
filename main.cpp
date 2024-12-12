@@ -8,7 +8,7 @@
  *updating implement task b 10/12/2024
  *Malak Ahmed 20221157
  *Salma Gamal 20221073
- *
+ *Aya Ehab Ramadan 20221209 implements point ii in b 
  */
 #include <iostream>
 #include <bits/stdc++.h>
@@ -41,7 +41,6 @@ public:
 class skipList
 {
 private:
-    node* header;
     int level;
 public:
     skipList();
@@ -53,6 +52,8 @@ public:
     bool search(int data);
     int searchBYname(string name );
     void display();
+
+    node* header;
 };
 
 //constructor of the skipList class
@@ -226,6 +227,22 @@ int skipList::searchBYname(string name ){
         curr = curr->next[0];
     }return -1;
 }
+void GetTopNPlayers (node *head, int N){
+    vector <pair<string,int>> LeaderBoard;
+    node* Start = head ->next[0];
+    while(Start){
+      LeaderBoard.push_back({Start->name,Start->data});
+      Start = Start->next[0];
+    }
+//    sort (LeaderBoard.begin(),LeaderBoard.end());
+  sort(LeaderBoard.begin(), LeaderBoard.end(), [](const pair<string, int> &a, const pair<string, int> &b) {
+      return a.second > b.second;
+  });
+    for(int i = 0 ;i<min(N,(int)LeaderBoard.size());i++){
+      cout << LeaderBoard[i].first<<" : "<<LeaderBoard[i].second<<'\n';
+}
+}
+
 int main()
 {
 
@@ -248,42 +265,40 @@ int main()
               ;
         cin>>x;
         switch(x){
-            case 1:
+          case 1:
                 cout<<"enter the player name and score\n";
                 cin>>p.name>>p.data;
                 SkipList.insert(p);
                 break;
-            case 2:
+          case 2:
                 cout<<"enter the player name \n";
                 cin>>p.name;
                 p.data=SkipList.searchBYname(p.name);
                 SkipList.remove(p);
                 break;
-            case 3:
+          case 3:
                 cout<<"enter the name of the player and the new score\n";
                 cin>>p.name>>score;
                 p.data=SkipList.searchBYname(p.name);
                 SkipList.update_player(p,score);
-            break;
-            case 4:
+                break;
+          case 4:
                cout<<"Enter the palyer's name to view their score : \n";
-            cin>>p.name;
-            p.data=SkipList.searchBYname(p.name);
-            if(p.data!=-1) cout<<p.data<<"\n";
-            else cout<<"Player not found\n";
-                break;
-            case 5:
-                cout << "Round finished! Displaying all players and their scores:\n";
+               cin>>p.name;
+               p.data=SkipList.searchBYname(p.name);
+               if(p.data!=-1) cout<<p.data<<"\n";
+               else cout<<"Player not found\n";
+               break;
+          case 5:
+              cout << "Round finished! Displaying all players and their scores:\n";
               SkipList.display();
-            break;
-            case 6:
-                //todo
-                break;
-            default:
-                cout << "Invalid choice. Please select a valid option.\n";
-            break;
-
-
+              break;
+          case 6:
+              GetTopNPlayers(SkipList.header,10);
+              break;
+          default:
+            cout << "Invalid choice. Please select a valid option.\n";
+          break;
         }
         SkipList.display();
         if(x>6) break;
